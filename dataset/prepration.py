@@ -1,5 +1,7 @@
 import os
 import cv2
+import argparse
+
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 from cv2 import imread
@@ -90,7 +92,6 @@ def annotator(images_path: str, xml_path: str):
 
 
 if __name__ == '__main__':
-    import argparse
 
     # Parse command line arguments
     parser = argparse.ArgumentParser(
