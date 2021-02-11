@@ -21,9 +21,9 @@ def annotator(images_path: str, xml_path: str):
 
         xml_file = open(xml_path + images[i].split('.')[0] + '.xml')
         soup = BeautifulSoup(xml_file.read(), 'xml')
-        print(soup)
         annotation = soup.annotation
-        print(annotation)
+        if not annotation:
+            continue
 
         objs = soup.findAll('object')
 
@@ -87,9 +87,6 @@ def annotator(images_path: str, xml_path: str):
         xml_file = open(xml_path + images[i].split('.')[0] + '.xml', "w")
         xml_file.write(soup.prettify())
         xml_file.close()
-
-        if i >= 100:
-            break
 
 
 if __name__ == '__main__':
