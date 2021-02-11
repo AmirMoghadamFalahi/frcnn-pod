@@ -83,7 +83,7 @@ def annotator(images_path: str, xml_path: str):
                     bndbox.append(new_tag)
 
         xml_file = open(xml_path + images[i].split('.')[0] + '.xml', "w")
-        xml_file.write(soup)
+        xml_file.write(soup.prettify())
         xml_file.close()
 
 
