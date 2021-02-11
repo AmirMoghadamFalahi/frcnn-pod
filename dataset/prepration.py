@@ -21,6 +21,7 @@ def annotator(images_path: str, xml_path: str):
 
         xml_file = open(xml_path + images[i].split('.')[0] + '.xml')
         soup = BeautifulSoup(xml_file.read(), 'xml')
+        print(soup)
         annotation = soup.annotation
         print(annotation)
 
