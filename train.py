@@ -116,7 +116,7 @@ def get_data(input_img_path: str, input_xml_path: str):
 
     print('Parsing annotation files')
 
-    for filename in tqdm(img_files):
+    for filename in img_files:
 
         xml_file = filename.split('.')[0] + '.xml'
 
