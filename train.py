@@ -124,15 +124,15 @@ def get_data(input_img_path: str, input_xml_path: str):
         sys.stdout.write('\r' + 'idx=' + str(i))
         i += 1
 
-        file = open(input_xml_path + xml_file)
-        soup = BeautifulSoup(file.read(), 'xml')
+        f = open(input_xml_path + xml_file)
+        soup = BeautifulSoup(f.read(), 'xml')
         objs = soup.findAll('object')
 
         for obj in objs:
             x1 = int(obj.find('xmin').text)
             y1 = int(obj.find('ymin').text)
             x2 = int(obj.find('xmax').text)
-            y2 = int(obj.fine('ymax').text)
+            y2 = int(obj.find('ymax').text)
             class_name = obj.find('name').text
 
             if class_name not in classes_count:
