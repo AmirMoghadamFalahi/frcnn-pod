@@ -28,7 +28,7 @@ def cal_dir_stat(root: str):
 
     for file_path in tqdm(file_paths):
         im = cv2.imread(file_path)  # image in M*N*CHANNEL_NUM shape, channel in BGR order
-        im = im / 255.0
+        # im = im / 255.0
         pixel_num += (im.size / CHANNEL_NUM)
         channel_sum += np.sum(im, axis=(0, 1))
         channel_sum_squared += np.sum(np.square(im), axis=(0, 1))
