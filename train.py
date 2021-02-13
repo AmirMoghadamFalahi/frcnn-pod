@@ -9,8 +9,6 @@ import tensorflow as tf
 import numpy as np
 import time
 import pprint
-
-from tqdm import tqdm
 from bs4 import BeautifulSoup
 
 from keras import backend as K
@@ -133,7 +131,7 @@ def get_data(input_img_path: str, input_xml_path: str):
             y1 = int(obj.find('ymin').text)
             x2 = int(obj.find('xmax').text)
             y2 = int(obj.find('ymax').text)
-            class_name = obj.find('name').text
+            class_name = obj.find('name').text.strip()
 
             if class_name not in classes_count:
                 classes_count[class_name] = 1
