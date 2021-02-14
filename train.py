@@ -1261,7 +1261,7 @@ if __name__ == '__main__':
             config_output_filename))
 
     # Shuffle the images with seed
-    random.seed(1)
+    random.seed(42)
     random.shuffle(train_imgs)
 
     print('Num train samples (images) {}'.format(len(train_imgs)))
@@ -1299,7 +1299,7 @@ if __name__ == '__main__':
 
         plt.grid()
         plt.imshow(img)
-        plt.savefig('aaa.png')
+        plt.savefig('zero-debug-num-pos.png')
         plt.show()
     else:
         cls = Y[0][0]
@@ -1314,6 +1314,7 @@ if __name__ == '__main__':
         img = debug_img.copy()
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         color = (0, 255, 0)
+
         for xxx in range(len(image_data['bboxes'])):
             gt_x1, gt_x2 = image_data['bboxes'][xxx]['x1'] * (X.shape[2] / image_data['width']), image_data['bboxes'][xxx][
                 'x2'] * (X.shape[2] / image_data['width'])
@@ -1350,9 +1351,9 @@ if __name__ == '__main__':
             cv2.rectangle(img, (center[0] - int(anc_w / 2), center[1] - int(anc_h / 2)),
                           (center[0] + int(anc_w / 2), center[1] + int(anc_h / 2)), color, 2)
 
-    print('Green bboxes is ground-truth bbox. Others are positive anchors')
-    plt.figure(figsize=(8, 8))
-    plt.grid()
-    plt.imshow(img)
-    plt.savefig('bbb.png')
-    plt.show()
+        print('Green bboxes is ground-truth bbox. Others are positive anchors')
+        plt.figure(figsize=(8, 8))
+        plt.grid()
+        plt.imshow(img)
+        plt.savefig('test-picture.png')
+        plt.show()
