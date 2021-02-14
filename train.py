@@ -44,7 +44,7 @@ class Config:
 
         # Size to resize the smallest side of the image
         # Original setting in paper is 600. Set to 300 in here to save training time
-        self.im_size = 300
+        self.im_size = 600
 
         # image channel-wise mean to subtract
         # e.g.self.img_channel_mean = [103.939, 116.779, 123.68]
@@ -1311,28 +1311,29 @@ if __name__ == '__main__':
         print('y_rpn_cls for possible pos anchor: {}'.format(cls[pos_cls[0][0], pos_cls[1][0], :]))
         print('y_rpn_regr for positive anchor: {}'.format(regr[pos_regr[0][0], pos_regr[1][0], :]))
 
-        gt_x1, gt_x2 = image_data['bboxes'][0]['x1'] * (X.shape[2] / image_data['width']), image_data['bboxes'][0][
-            'x2'] * (X.shape[2] / image_data['width'])
-        gt_y1, gt_y2 = image_data['bboxes'][0]['y1'] * (X.shape[1] / image_data['height']), image_data['bboxes'][0][
-            'y2'] * (X.shape[1] / image_data['height'])
-        gt_x1, gt_y1, gt_x2, gt_y2 = int(gt_x1), int(gt_y1), int(gt_x2), int(gt_y2)
+        for xxx in range(len(image_data['bboxes'])):
+            gt_x1, gt_x2 = image_data['bboxes'][xxx]['x1'] * (X.shape[2] / image_data['width']), image_data['bboxes'][xxx][
+                'x2'] * (X.shape[2] / image_data['width'])
+            gt_y1, gt_y2 = image_data['bboxes'][xxx]['y1'] * (X.shape[1] / image_data['height']), image_data['bboxes'][xxx][
+                'y2'] * (X.shape[1] / image_data['height'])
+            gt_x1, gt_y1, gt_x2, gt_y2 = int(gt_x1), int(gt_y1), int(gt_x2), int(gt_y2)
 
-        img = debug_img.copy()
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        color = (0, 255, 0)
-        #   cv2.putText(img, 'gt bbox', (gt_x1, gt_y1-5), cv2.FONT_HERSHEY_DUPLEX, 0.7, color, 1)
-        cv2.rectangle(img, (gt_x1, gt_y1), (gt_x2, gt_y2), color, 2)
-        cv2.circle(img, (int((gt_x1 + gt_x2) / 2), int((gt_y1 + gt_y2) / 2)), 3, color, -1)
+            img = debug_img.copy()
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            color = (0, 255, 0)
+            #   cv2.putText(img, 'gt bbox', (gt_x1, gt_y1-5), cv2.FONT_HERSHEY_DUPLEX, 0.7, color, 1)
+            cv2.rectangle(img, (gt_x1, gt_y1), (gt_x2, gt_y2), color, 2)
+            cv2.circle(img, (int((gt_x1 + gt_x2) / 2), int((gt_y1 + gt_y2) / 2)), 3, color, -1)
 
-        # Add text
-        textLabel = 'gt bbox'
-        (retval, baseLine) = cv2.getTextSize(textLabel, cv2.FONT_HERSHEY_COMPLEX, 0.5, 1)
-        textOrg = (gt_x1, gt_y1 + 5)
-        cv2.rectangle(img, (textOrg[0] - 5, textOrg[1] + baseLine - 5),
-                      (textOrg[0] + retval[0] + 5, textOrg[1] - retval[1] - 5), (0, 0, 0), 2)
-        cv2.rectangle(img, (textOrg[0] - 5, textOrg[1] + baseLine - 5),
-                      (textOrg[0] + retval[0] + 5, textOrg[1] - retval[1] - 5), (255, 255, 255), -1)
-        cv2.putText(img, textLabel, textOrg, cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 0), 1)
+            # Add text
+            textLabel = 'gt bbox'
+            (retval, baseLine) = cv2.getTextSize(textLabel, cv2.FONT_HERSHEY_COMPLEX, 0.5, 1)
+            textOrg = (gt_x1, gt_y1 + 5)
+            cv2.rectangle(img, (textOrg[0] - 5, textOrg[1] + baseLine - 5),
+                          (textOrg[0] + retval[0] + 5, textOrg[1] - retval[1] - 5), (0, 0, 0), 2)
+            cv2.rectangle(img, (textOrg[0] - 5, textOrg[1] + baseLine - 5),
+                          (textOrg[0] + retval[0] + 5, textOrg[1] - retval[1] - 5), (255, 255, 255), -1)
+            cv2.putText(img, textLabel, textOrg, cv2.FONT_HERSHEY_DUPLEX, 0.5, (0, 0, 0), 1)
 
         # Draw positive anchors according to the y_rpn_regr
         for i in range(debug_num_pos):
