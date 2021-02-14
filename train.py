@@ -151,7 +151,7 @@ def get_data(input_img_path: str, input_xml_path: str):
 
                 img = cv2.imread(input_img_path + filename)
                 (rows, cols) = img.shape[:2]
-                all_imgs[filename]['filepath'] = filename
+                all_imgs[filename]['filepath'] = input_img_path + filename
                 all_imgs[filename]['width'] = cols
                 all_imgs[filename]['height'] = rows
                 all_imgs[filename]['bboxes'] = []
@@ -1299,6 +1299,7 @@ if __name__ == '__main__':
 
         plt.grid()
         plt.imshow(img)
+        plt.savefig('aaa.png')
         plt.show()
     else:
         cls = Y[0][0]
@@ -1352,4 +1353,5 @@ if __name__ == '__main__':
     plt.figure(figsize=(8, 8))
     plt.grid()
     plt.imshow(img)
+    plt.savefig('bbb.png')
     plt.show()
