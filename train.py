@@ -1311,6 +1311,9 @@ if __name__ == '__main__':
         print('y_rpn_cls for possible pos anchor: {}'.format(cls[pos_cls[0][0], pos_cls[1][0], :]))
         print('y_rpn_regr for positive anchor: {}'.format(regr[pos_regr[0][0], pos_regr[1][0], :]))
 
+        img = debug_img.copy()
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        color = (0, 255, 0)
         for xxx in range(len(image_data['bboxes'])):
             gt_x1, gt_x2 = image_data['bboxes'][xxx]['x1'] * (X.shape[2] / image_data['width']), image_data['bboxes'][xxx][
                 'x2'] * (X.shape[2] / image_data['width'])
@@ -1318,9 +1321,6 @@ if __name__ == '__main__':
                 'y2'] * (X.shape[1] / image_data['height'])
             gt_x1, gt_y1, gt_x2, gt_y2 = int(gt_x1), int(gt_y1), int(gt_x2), int(gt_y2)
 
-            img = debug_img.copy()
-            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-            color = (0, 255, 0)
             #   cv2.putText(img, 'gt bbox', (gt_x1, gt_y1-5), cv2.FONT_HERSHEY_DUPLEX, 0.7, color, 1)
             cv2.rectangle(img, (gt_x1, gt_y1), (gt_x2, gt_y2), color, 2)
             cv2.circle(img, (int((gt_x1 + gt_x2) / 2), int((gt_y1 + gt_y2) / 2)), 3, color, -1)
