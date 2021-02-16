@@ -838,8 +838,9 @@ def class_loss_regr(num_classes):
         x = int(y_true[:, :, 4*num_classes:] - y_pred)
         x_abs = K.abs(x)
         x_bool = K.cast(K.less_equal(x_abs, 1), 'float32')
+        print(lambda_cls_regr, y_true[:, :, :4*num_classes], x_bool, x, x_abs, epsilon)
         return lambda_cls_regr * K.sum(y_true[:, :, :4*num_classes] *
-                                       (x_bool * (0.5 * x * x) + (1 - x_bool) * (x_abs - 0.5))) / \
+                                       (x_bool * (0.6 * x * x) + (1 - x_bool) * (x_abs - 0.5))) / \
                K.sum(epsilon + y_true[:, :, :4*num_classes])
     return class_loss_regr_fixed_num
 
