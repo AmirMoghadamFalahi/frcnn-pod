@@ -1461,6 +1461,7 @@ if __name__ == '__main__':
     print(len(record_df))
 
     start_time = time.time()
+    tf.zero_initializer()
     for epoch_num in range(num_epochs):
 
         progbar = generic_utils.Progbar(epoch_length)
