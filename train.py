@@ -835,7 +835,7 @@ def class_loss_regr(num_classes):
                            x_abx - 0.5 (otherwise)
     """
     def class_loss_regr_fixed_num(y_true, y_pred):
-        x = int(y_true[:, :, 4*num_classes:] - y_pred)
+        x = y_true[:, :, 4*num_classes:] - y_pred
         x_abs = K.abs(x)
         x_bool = K.cast(K.less_equal(x_abs, 1), 'float32')
 
