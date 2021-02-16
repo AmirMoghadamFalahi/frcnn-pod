@@ -48,7 +48,7 @@ class Config:
 
         # Size to resize the smallest side of the image
         # Original setting in paper is 600. Set to 300 in here to save training time
-        self.im_size = 600
+        self.im_size = 300
 
         # image channel-wise mean to subtract
         # e.g.self.img_channel_mean = [103.939, 116.779, 123.68]
@@ -835,7 +835,7 @@ def class_loss_regr(num_classes):
                            x_abx - 0.5 (otherwise)
     """
     def class_loss_regr_fixed_num(y_true, y_pred):
-        x = y_true[:, :, 4*num_classes:] - y_pred
+        x = int(y_true[:, :, 4*num_classes:] - y_pred)
         x_abs = K.abs(x)
         x_bool = K.cast(K.less_equal(x_abs, 1.0), 'float32')
         return lambda_cls_regr * K.sum(y_true[:, :, :4*num_classes] *
@@ -1583,7 +1583,7 @@ if __name__ == '__main__':
                         print('Loss Detector regression: {}'.format(loss_class_regr))
                         print('Total loss: {}'.format(loss_rpn_cls + loss_rpn_regr + loss_class_cls + loss_class_regr))
                         print('Elapsed time: {}'.format(time.time() - start_time))
-                        elapsed_time = (time.time() - start_time) / 60
+                    elapsed_time = (time.time() - start_time) / 60
 
                     curr_loss = loss_rpn_cls + loss_rpn_regr + loss_class_cls + loss_class_regr
                     iter_num = 0
@@ -1596,17 +1596,17 @@ if __name__ == '__main__':
                         model_all.save_weights(C.model_path)
 
                     new_row = {'mean_overlapping_bboxes': round(mean_overlapping_bboxes, 3),
-                               'class_acc': round(class_acc, 3),
-                               'loss_rpn_cls': round(loss_rpn_cls, 3),
-                               'loss_rpn_regr': round(loss_rpn_regr, 3),
-                               'loss_class_cls': round(loss_class_cls, 3),
-                               'loss_class_regr': round(loss_class_regr, 3),
+                               'class_acc': np.round(class_acc, 3),
+                               'loss_rpn_cls': np.round(loss_rpn_cls, 3),
+                               'loss_rpn_regr': np.round(loss_rpn_regr, 3),
+                               'loss_class_cls': np.round(loss_class_cls, 3),
+                               'loss_class_regr': np.round(loss_class_regr, 3),
                                'curr_loss': round(curr_loss, 3),
-                               'elapsed_time': round(elapsed_time, 3),
+                               'elapsed_time': np.round(elapsed_time, 3),
                                'mAP': 0}
 
                     record_df = record_df.append(new_row, ignore_index=True)
-                    record_df.to_csv(record_path, index=0)
+                    record_df.to_csv(record_path, index=False)
 
                     break
 
