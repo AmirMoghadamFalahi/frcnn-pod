@@ -836,17 +836,9 @@ def class_loss_regr(num_classes):
     """
     def class_loss_regr_fixed_num(y_true, y_pred):
         x = int(y_true[:, :, 4*num_classes:] - y_pred)
-        print(x)
-        print(x.dtype)
         x_abs = K.abs(x)
-        x = K.cast(x, 'float32')
         x_bool = K.cast(K.less_equal(x_abs, 1), 'float32')
 
-        print(lambda_cls_regr, y_true[:, :, :4*num_classes], x_bool, x, x_abs, epsilon)
-        print('-------------------------')
-        print(K.sum(epsilon + y_true[:, :, :4*num_classes]))
-        print((1 - x_bool) * (x_abs - 0.5))
-        print(K.sum(y_true[:, :, :4*num_classes] * (x_bool * (0.5 * x * x) + (1 - x_bool) * (x_abs - 0.5))))
         return lambda_cls_regr * K.sum(y_true[:, :, :4*num_classes] *
                                        (x_bool * (0.5 * x * x) + (1 - x_bool) * (x_abs - 0.5))) / \
                K.sum(epsilon + y_true[:, :, :4*num_classes])
@@ -1461,7 +1453,6 @@ if __name__ == '__main__':
     print(len(record_df))
 
     start_time = time.time()
-    tf.zero_initializer()
     for epoch_num in range(num_epochs):
 
         progbar = generic_utils.Progbar(epoch_length)
