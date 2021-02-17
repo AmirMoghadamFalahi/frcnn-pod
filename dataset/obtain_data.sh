@@ -18,3 +18,7 @@ unzip -o zip_data/validation_xml.zip | pv -l >/dev/null
 # removing zip data
 rm IIIT-AR-13K_dataset.zip
 rm -rf zip_data
+
+# downloading model
+mkdir model/
+wget https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels.h5 -P model/
