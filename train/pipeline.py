@@ -259,7 +259,7 @@ if __name__ == '__main__':
     r_epochs = len(record_df)
 
     epoch_length = 1000
-    num_epochs = 40
+    num_epochs = 10
     iter_num = 0
 
     total_epochs += num_epochs
