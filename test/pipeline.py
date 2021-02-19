@@ -3,8 +3,13 @@ import pickle
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import yaml
 
 from keras.layers import Input
+
+ROOT_DIR = str(str(os.path.realpath(__file__).replace('\\', '/')).split('gavm/')[0]) + 'gavm/'
+conf_dir = ROOT_DIR + 'config/db_configs.yaml'
+conn_dict = yaml.load(open(conf_dir), Loader=yaml.SafeLoader)
 
 from train import nn_base, rpn_layer, classifier_layer
 from keras.models import Model
