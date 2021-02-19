@@ -3,13 +3,13 @@ import pickle
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import yaml
+import sys
 
 from keras.layers import Input
 
-ROOT_DIR = str(str(os.path.realpath(__file__).replace('\\', '/')).split('frcnn-pod/')[0]) + 'frcnn-pod/'
-conf_dir = ROOT_DIR + 'config/db_configs.yaml'
-conn_dict = yaml.load(open(conf_dir), Loader=yaml.SafeLoader)
+PROJECT_PATH = str(str(os.path.realpath(__file__).replace('\\', '/')).split('frcnn-pod/')[0]) + 'frcnn-pod/'
+if PROJECT_PATH not in sys.path:
+    sys.path.append(PROJECT_PATH)
 
 from train import nn_base, rpn_layer, classifier_layer
 from keras.models import Model
