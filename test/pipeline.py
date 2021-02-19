@@ -21,7 +21,7 @@ if __name__ == '__main__':
     test_img_path = 'test_images'
     test_xml_path = 'test_xml'
 
-    config_output_filename = 'model_vgg_config.pickle'
+    config_output_filename = 'model/model_vgg_config.pickle'
 
     with open(config_output_filename, 'rb') as f_in:
         C = pickle.load(f_in)
