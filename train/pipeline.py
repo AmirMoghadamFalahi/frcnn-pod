@@ -72,8 +72,9 @@ if __name__ == '__main__':
         classes_count['bg'] = 0
         class_mapping['bg'] = len(class_mapping)
     # e.g.
-    #    classes_count: {'Car': 2383, 'Mobile phone': 1108, 'Person': 3745, 'bg': 0}
-    #    class_mapping: {'Person': 0, 'Car': 1, 'Mobile phone': 2, 'bg': 3}
+    #    classes_count: {'bg': 0, 'figure': 2004, 'logo': 379, 'natural_image': 1987, 'signature': 420,
+    #                    'table': 11163, 'textbox': 33943}
+    #    class_mapping: {'table': 0, 'textbox': 1, 'natural_image': 2, 'signature': 3, 'figure': 4, 'logo': 5, 'bg': 6}
     C.class_mapping = class_mapping
 
     print('Training images per class:')
