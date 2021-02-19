@@ -15,10 +15,10 @@ from keras.utils import generic_utils
 from keras import backend as K
 
 from config import Config
-from data import get_data, get_anchor_gt
+from data import get_data, get_anchor_gt, calc_iou
 from model import get_img_output_length, nn_base, rpn_layer, classifier_layer
 from loss import rpn_loss_regr, rpn_loss_cls, class_loss_regr, class_loss_cls
-from utils import calc_iou, rpn_to_roi
+from utils import rpn_to_roi
 
 
 if __name__ == '__main__':
