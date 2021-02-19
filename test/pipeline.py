@@ -7,7 +7,7 @@ import yaml
 
 from keras.layers import Input
 
-ROOT_DIR = str(str(os.path.realpath(__file__).replace('\\', '/')).split('gavm/')[0]) + 'gavm/'
+ROOT_DIR = str(str(os.path.realpath(__file__).replace('\\', '/')).split('frcnn-pod/')[0]) + 'frcnn-pod/'
 conf_dir = ROOT_DIR + 'config/db_configs.yaml'
 conn_dict = yaml.load(open(conf_dir), Loader=yaml.SafeLoader)
 
