@@ -5,9 +5,15 @@ import cv2
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 
 from keras.layers import Input
 from keras import backend as K
+
+PROJECT_PATH = str(str(os.path.realpath(__file__).replace('\\', '/')).split('frcnn-pod/')[0]) + 'frcnn-pod'
+if PROJECT_PATH not in sys.path:
+    sys.path.append(PROJECT_PATH)
+
 
 from train.model import nn_base, rpn_layer, classifier_layer
 from train.utils import rpn_to_roi, apply_regr, non_max_suppression_fast
