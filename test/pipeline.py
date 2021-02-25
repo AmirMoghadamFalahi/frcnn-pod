@@ -249,5 +249,5 @@ if __name__ == '__main__':
         plt.figure(figsize=(10, 10))
         plt.grid()
         plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-        plt.savefig(base_test_path + 'test_' + str(i) + '.png')
+        plt.savefig(base_test_path + img_name)
         # plt.show()
