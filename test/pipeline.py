@@ -13,6 +13,7 @@ if PROJECT_PATH not in sys.path:
 
 from train import nn_base, rpn_layer, classifier_layer
 from keras.models import Model
+from train import Config
 
 if __name__ == '__main__':
 
