@@ -3,8 +3,6 @@ import random
 import math
 import copy
 
-from train.data import get_new_img_size
-
 
 # Calculate IoU (Intersection of Union)
 def union(au, bu, area_intersection):
@@ -34,6 +32,21 @@ def iou(a, b):
     area_u = union(a, b, area_i)
 
     return float(area_i) / float(area_u + 1e-6)
+
+
+# Get new image size and augment the image
+def get_new_img_size(width, height, img_min_side=300):
+
+    if width <= height:
+        f = float(img_min_side) / width
+        resized_height = int(f * height)
+        resized_width = img_min_side
+    else:
+        f = float(img_min_side) / height
+        resized_width = int(f * width)
+        resized_height = img_min_side
+
+    return resized_width, resized_height
 
 
 # Calculate the rpn for all anchors of all images
