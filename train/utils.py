@@ -3,10 +3,11 @@ import random
 import math
 import copy
 
-from data import get_new_img_size
-
 
 # Calculate IoU (Intersection of Union)
+from train.data import get_new_img_size
+
+
 def union(au, bu, area_intersection):
     area_a = (au[2] - au[0]) * (au[3] - au[1])
     area_b = (bu[2] - bu[0]) * (bu[3] - bu[1])
