@@ -24,13 +24,17 @@ if __name__ == '__main__':
 
     config_output_filename = 'model/model_vgg_config.pickle'
 
-    with open(config_output_filename, 'rb') as f_in:
-        C = pickle.load(f_in)
+    # with open(config_output_filename, 'rb') as f_in:
+    #     C = pickle.load(f_in)
+
+    C = Config()
 
     # turn off any data augmentation at test time
     C.use_horizontal_flips = False
     C.use_vertical_flips = False
     C.rot_90 = False
+
+    C.record_path = 'model/record.csv'
 
     # Load the records
     record_df = pd.read_csv(C.record_path)
