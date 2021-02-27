@@ -36,7 +36,6 @@ def iou(a, b):
 
 # Get new image size and augment the image
 def get_new_img_size(width, height, img_min_side=300):
-
     if width <= height:
         f = float(img_min_side) / width
         resized_height = int(f * height)
@@ -598,3 +597,63 @@ def rpn_to_roi(rpn_layer, regr_layer, C, dim_ordering, use_regr=True, max_boxes=
     result = non_max_suppression_fast(all_boxes, all_probs, overlap_thresh=overlap_thresh, max_boxes=max_boxes)[0]
 
     return result
+
+
+# Measure mAP
+def get_map(pred, gt, f):
+
+    T = {}
+    P = {}
+    fx, fy = f
+
+    for bbox in gt:
+        bbox['bbox_matched'] = False
+
+    pred_probs = np.array([s['prob'] for s in pred])
+    box_idx_sorted_by_prob = np.argsort(pred_probs)[::-1]
+
+    for box_idx in box_idx_sorted_by_prob:
+        pred_box = pred[box_idx]
+        pred_class = pred_box['class']
+        pred_x1 = pred_box['x1']
+        pred_x2 = pred_box['x2']
+        pred_y1 = pred_box['y1']
+        pred_y2 = pred_box['y2']
+        pred_prob = pred_box['prob']
+        if pred_class not in P:
+            P[pred_class] = []
+            T[pred_class] = []
+        P[pred_class].append(pred_prob)
+        found_match = False
+
+        for gt_box in gt:
+            gt_class = gt_box['class']
+            gt_x1 = gt_box['x1'] / fx
+            gt_x2 = gt_box['x2'] / fx
+            gt_y1 = gt_box['y1'] / fy
+            gt_y2 = gt_box['y2'] / fy
+            gt_seen = gt_box['bbox_matched']
+            if gt_class != pred_class:
+                continue
+            if gt_seen:
+                continue
+            iou_map = iou((pred_x1, pred_y1, pred_x2, pred_y2), (gt_x1, gt_y1, gt_x2, gt_y2))
+            if iou_map >= 0.5:
+                found_match = True
+                gt_box['bbox_matched'] = True
+                break
+            else:
+                continue
+
+        T[pred_class].append(int(found_match))
+
+    for gt_box in gt:
+        if not gt_box['bbox_matched']:  # and not gt_box['difficult']:
+            if gt_box['class'] not in P:
+                P[gt_box['class']] = []
+                T[gt_box['class']] = []
+
+            T[gt_box['class']].append(1)
+            P[gt_box['class']].append(0)
+
+    return T, P
