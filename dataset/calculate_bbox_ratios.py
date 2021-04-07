@@ -4,11 +4,8 @@ deviation in the training set, do not calculate the statistics on the
 whole dataset.
 """
 
-import numpy as np
-import cv2
-import timeit
+import matplotlib.pyplot as plt
 from os import listdir
-from os.path import isdir
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
@@ -17,6 +14,8 @@ def calculate_mean_ratio(xml_path: str):
 
     if not xml_path.endswith('/'):
         xml_path += '/'
+
+    ratios_dict = {}
 
     xml_files = sorted(listdir(xml_path))
     for i in tqdm(range(len(xml_files)), desc='finding common ratios'):
@@ -40,15 +39,21 @@ def calculate_mean_ratio(xml_path: str):
             w = x2 - x1
             h = y2 - y1
 
-            print(x1, y1, x2, y2, object_type, w, h)
+            ratio = h / w
 
-        if i >= 25:
-            break
+            if object_type in ratios_dict.keys():
+                ratios_dict[object_type].append(ratio)
+            else:
+                ratios_dict[object_type] = [ratio]
+
+    for k in ratios_dict.keys():
+        plt.hist(ratios_dict[k], bins=20)
+        plt.title('hist of ' + k + ' ratios')
+        plt.show()
 
 
 if __name__ == '__main__':
     # The script assumes that under train_root, there are separate directories for each class
     # of training images.
-    train_root = "training_images/"
-    start = timeit.default_timer()
+    train_root = "training_xml/"
     calculate_mean_ratio(train_root)
