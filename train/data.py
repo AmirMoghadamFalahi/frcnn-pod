@@ -6,7 +6,7 @@ import numpy as np
 import copy
 from bs4 import BeautifulSoup
 
-from train.utils import calc_rpn
+from utils import calc_rpn
 
 
 # Parser the data from annotation file
