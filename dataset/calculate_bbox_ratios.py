@@ -42,10 +42,13 @@ def calculate_mean_ratio(xml_path: str):
 
             print(x1, y1, x2, y2, object_type, w, h)
 
+        if i >= 25:
+            break
+
 
 if __name__ == '__main__':
     # The script assumes that under train_root, there are separate directories for each class
     # of training images.
     train_root = "training_images/"
     start = timeit.default_timer()
-
+    calculate_mean_ratio(train_root)
