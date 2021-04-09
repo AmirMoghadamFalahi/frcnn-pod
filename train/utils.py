@@ -416,6 +416,7 @@ def rpn_to_roi(rpn_layer, regr_layer, C, dim_ordering, use_regr=True, max_boxes=
 
     anchor_sizes = C.anchor_box_scales  # (3 in here)
     anchor_ratios = C.anchor_box_ratios  # (3 in here)
+    num_anchors = len(anchor_sizes) * len(anchor_ratios)
 
     assert rpn_layer.shape[0] == 1
 
@@ -427,7 +428,7 @@ def rpn_to_roi(rpn_layer, regr_layer, C, dim_ordering, use_regr=True, max_boxes=
     # Might be (4, 18, 25, 18) if resized image is 400 width and 300
     # A is the coordinates for 9 anchors for every point in the feature map
     # => all 18x25x9=4050 anchors cooridnates
-    A = np.zeros((4, rpn_layer.shape[1], rpn_layer.shape[2], rpn_layer.shape[3]))
+    A = np.zeros((4, rpn_layer.shape[1], rpn_layer.shape[2], num_anchors))
 
     for anchor_size in anchor_sizes:
         for anchor_ratio in anchor_ratios:
