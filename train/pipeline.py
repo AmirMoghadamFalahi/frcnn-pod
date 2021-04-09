@@ -170,8 +170,8 @@ if __name__ == '__main__':
 
             idx = pos_regr[2][i * 4] / 4
             print(idx, len(C.anchor_box_scales), len(C.anchor_box_ratios))
-            anchor_size = C.anchor_box_scales[int(idx / 3)]
-            anchor_ratio = C.anchor_box_ratios[2 - int((idx + 1) % 3)]
+            anchor_size = C.anchor_box_scales[int(idx / len(C.anchor_box_ratios))]
+            anchor_ratio = C.anchor_box_ratios[2 - int((idx + 1) % len(C.anchor_box_scales))]
 
             center = (pos_regr[1][i * 4] * C.rpn_stride, pos_regr[0][i * 4] * C.rpn_stride)
             print('Center position of positive anchor: ', center)
