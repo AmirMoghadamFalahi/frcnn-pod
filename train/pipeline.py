@@ -169,6 +169,7 @@ if __name__ == '__main__':
             color = (100 + i * (155 / 4), 0, 100 + i * (155 / 4))
 
             idx = pos_regr[2][i * 4] / 4
+            print(idx, len(C.anchor_box_scales), len(C.anchor_box_ratios))
             anchor_size = C.anchor_box_scales[int(idx / 3)]
             anchor_ratio = C.anchor_box_ratios[2 - int((idx + 1) % 3)]
 
