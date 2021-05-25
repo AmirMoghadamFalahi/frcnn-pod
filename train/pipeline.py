@@ -33,19 +33,21 @@ if __name__ == '__main__':
     vertical_flips = True  # Augment with vertical flips in training.
     rot_90 = True  # Augment with 90 degree rotations in training.
 
+    root_dir = 'MyDrive/pod-model-frcnn/'
+
     try:
-        os.mkdir('model')
+        os.mkdir(root_dir + 'model')
     except:
         pass
 
-    output_weight_path = 'model/model_frcnn_vgg.hdf5'
+    output_weight_path = root_dir + 'model/model_frcnn_vgg.hdf5'
 
-    record_path = 'model/record.csv' # Record data (used to save the losses, classification accuracy
-                                     # and mean average precision)
+    record_path = root_dir + 'model/record.csv' # Record data (used to save the losses, classification accuracy
+                                                # and mean average precision)
 
     base_weight_path = 'model/vgg16_weights_tf_dim_ordering_tf_kernels.h5'
 
-    config_output_filename = 'model_vgg_config.pickle'
+    config_output_filename = root_dir + 'model/model_vgg_config.pickle'
 
     # Create the config
     C = Config()
@@ -169,7 +171,6 @@ if __name__ == '__main__':
             color = (100 + i * (155 / 4), 0, 100 + i * (155 / 4))
 
             idx = pos_regr[2][i * 4] / 4
-            print(idx, len(C.anchor_box_scales), len(C.anchor_box_ratios))
             anchor_size = C.anchor_box_scales[int(idx / len(C.anchor_box_ratios))]
             anchor_ratio = C.anchor_box_ratios[2 - int((idx + 1) % len(C.anchor_box_scales))]
 
