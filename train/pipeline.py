@@ -33,7 +33,7 @@ if __name__ == '__main__':
     vertical_flips = True  # Augment with vertical flips in training.
     rot_90 = True  # Augment with 90 degree rotations in training.
 
-    root_dir = 'MyDrive/pod-model-frcnn/'
+    root_dir = 'gdrive/MyDrive/pod-model-frcnn/'
 
     try:
         os.mkdir(root_dir + 'model')
