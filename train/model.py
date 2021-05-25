@@ -2,7 +2,7 @@ import tensorflow as tf
 
 from keras import backend as K
 from keras.layers import Input, Conv2D, MaxPooling2D, Flatten, Dense, Dropout, TimeDistributed
-from keras.engine import Layer
+from tensorflow.python.keras.engine.base_layer import Layer
 
 
 # Define ROI Pooling Convolutional Layer
