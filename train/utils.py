@@ -69,7 +69,7 @@ def calc_rpn(C, img_data, width, height, resized_width, resized_height, img_leng
         y_rpn_regr: list(num_bboxes, 4*y_rpn_overlap + y_rpn_regr)
             y_rpn_regr: x1,y1,x2,y2 bunding boxes coordinates
     """
-    downscale = float(C.rpn_stride)
+    downscale = float(C.rpn_stride) # 16
     anchor_sizes = C.anchor_box_scales  # 128, 256, 512
     anchor_ratios = C.anchor_box_ratios  # 1:1, 1:2*sqrt(2), 2*sqrt(2):1
     num_anchors = len(anchor_sizes) * len(anchor_ratios)  # 3x3=9
@@ -100,6 +100,41 @@ def calc_rpn(C, img_data, width, height, resized_width, resized_height, img_leng
         gta[bbox_num, 1] = bbox['x2'] * (resized_width / float(width))
         gta[bbox_num, 2] = bbox['y1'] * (resized_height / float(height))
         gta[bbox_num, 3] = bbox['y2'] * (resized_height / float(height))
+
+    print("downscale: \n", downscale)
+    print('-----------')
+    print("anchor_sizes: \n", anchor_sizes)
+    print('-----------')
+    print("anchor_ratios: \n", anchor_ratios)
+    print('-----------')
+    print("num_anchors: \n", num_anchors)
+    print('-----------')
+    print("output_width: \n", output_width)
+    print('-----------')
+    print("output_height: \n", output_height)
+    print('-----------')
+    print("n_anchratios: \n", n_anchratios)
+    print('-----------')
+    print("y_rpn_overlap.shape: \n", y_rpn_overlap.shape)
+    print('-----------')
+    print("y_is_box_valid.shape: \n", y_is_box_valid.shape)
+    print('-----------')
+    print("y_rpn_regr.shape: \n", y_rpn_regr.shape)
+    print('-----------')
+    print("num_bboxes: \n", num_bboxes)
+    print('-----------')
+    print("num_anchors_for_bbox: \n", num_anchors_for_bbox)
+    print('-----------')
+    print("best_anchor_for_bbox: \n", best_anchor_for_bbox)
+    print('-----------')
+    print("best_iou_for_bbox: \n", best_iou_for_bbox)
+    print('-----------')
+    print("best_x_for_bbox: \n", best_x_for_bbox)
+    print('-----------')
+    print("best_dx_for_bbox: \n", best_dx_for_bbox)
+    print('-----------')
+    print("gta: \n", gta)
+    print('-----------')
 
     # rpn ground truth
 
