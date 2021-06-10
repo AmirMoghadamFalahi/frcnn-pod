@@ -23,12 +23,14 @@ from train.data import format_img, get_real_coordinates, get_data, format_img_ma
 
 if __name__ == '__main__':
 
+    root_dir = 'gdrive/MyDrive/pod-model-frcnn/'
+
     base_test_path = 'frcnn-pod/test/'
 
     test_img_path = 'test_images'
     test_xml_path = 'test_xml'
 
-    config_output_filename = 'model/model_vgg_config.pickle'
+    config_output_filename = root_dir + 'model/model_vgg_config.pickle'
 
     with open(config_output_filename, 'rb') as f_in:
         C = pickle.load(f_in)
@@ -38,8 +40,8 @@ if __name__ == '__main__':
     C.use_vertical_flips = False
     C.rot_90 = False
 
-    C.record_path = 'model/record.csv'
-    C.model_path = 'model/model_frcnn_vgg.hdf5'
+    C.record_path = root_dir + 'model/record.csv'
+    C.model_path = root_dir + 'model/model_frcnn_vgg.hdf5'
 
     # Load the records
     record_df = pd.read_csv(C.record_path)
