@@ -6,6 +6,10 @@ import numpy as np
 import copy
 from bs4 import BeautifulSoup
 
+PROJECT_PATH = str(str(os.path.realpath(__file__).replace('\\', '/')).split('frcnn-pod/')[0]) + 'frcnn-pod'
+if PROJECT_PATH not in sys.path:
+    sys.path.append(PROJECT_PATH)
+
 from utils import calc_rpn
 
 
