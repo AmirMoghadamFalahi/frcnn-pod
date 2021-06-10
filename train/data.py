@@ -57,6 +57,8 @@ def get_data(input_img_path: str, input_xml_path: str):
         sys.stdout.write('\r' + 'idx=' + str(i))
         i += 1
 
+        if i > 10: break
+
         f = open(input_xml_path + xml_file)
         soup = BeautifulSoup(f.read(), 'xml')
         objs = soup.findAll('object')
