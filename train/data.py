@@ -10,7 +10,11 @@ PROJECT_PATH = str(str(os.path.realpath(__file__).replace('\\', '/')).split('frc
 if PROJECT_PATH not in sys.path:
     sys.path.append(PROJECT_PATH)
 
-from utils import calc_rpn
+try:
+    from utils import calc_rpn
+except Exception as e:
+    if "No module named 'utils'" in str(e):
+        from train.utils import calc_rpn
 
 
 # Parser the data from annotation file
